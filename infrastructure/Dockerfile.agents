@@ -1,0 +1,24 @@
+# /metlife-TEN-Hackathon/infrastructure/Dockerfile.agents
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install uv
+RUN pip install uv
+
+# Copy project files
+COPY ../agents/pyproject.toml ../agents/uv.lock ./
+
+# Install dependencies
+RUN uv sync --no-dev
+
+# Copy source code
+COPY ../agents/src ./src
+COPY ../agents/main.py ./
+
+# Create data directory
+RUN mkdir -p /app/data
+
+EXPOSE 8000
+
+CMD ["uv", "run", "python", "main.py"]
