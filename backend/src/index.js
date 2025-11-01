@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import chatRoutes from './routes/chat.routes.js';
 
 dotenv.config();
 
@@ -29,6 +30,8 @@ app.get('/api/v1', (req, res) => {
     version: '1.0.0'
   });
 });
+
+app.use('/api/v1', chatRoutes);
 
 // Error handling
 app.use((err, req, res, next) => {
