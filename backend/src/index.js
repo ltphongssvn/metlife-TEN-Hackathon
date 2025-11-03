@@ -18,7 +18,23 @@ app.use(helmet());
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlenmtcoded({ extended: true }));
+
+// Root route
+app.get('/', (req, res) => {
+    res.json({
+        message: 'MetLife TEN Hackathon - AI Focus Assistant API',
+        version: '1.0.0',
+        status: 'running',
+        endpoints: {
+            health: '/health',
+            api: '/api/v1',
+            auth: '/api/v1/auth',
+            chat: '/api/v1/chat',
+            analytics: '/api/v1/analytics'
+        }
+    });
+});
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -46,5 +62,5 @@ app.use((err, req, res, next) => {
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-    console.log(`Environment: ${process.env.NODE_ENV || `development`}`);
+    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
 });
