@@ -5,13 +5,13 @@ WORKDIR /app
 # Install uv
 RUN pip install uv
 
-# Copy project files
-COPY agents/pyproject.toml agents/uv.lock* ./
+# Copy all necessary files for the package
+COPY agents/pyproject.toml agents/uv.lock* agents/README.md ./
 
 # Install dependencies
 RUN uv sync --no-dev
 
-# Copy source code
+# Copy source code and data
 COPY agents/src ./src
 COPY agents/main.py ./
 COPY agents/data ./data
