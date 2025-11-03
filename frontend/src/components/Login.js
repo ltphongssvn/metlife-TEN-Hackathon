@@ -31,14 +31,22 @@ const Login = ({ onLoginSuccess }) => {
 
         try {
             const endpoint = isLogin ? '/auth/login' : '/auth/register';
+            console.log('Submitting to:', endpoint, 'with data:', { ...formData, password: '***' });
             const response = await api.post(endpoint, formData);
+            
+            console.log('Response received:', response.data);
 
             if (response.data.token) {
                 localStorage.setItem('token', response.data.token);
+                console.log('Token stored, calling onLoginSuccess with user:', response.data.user);
                 // Pass user data to parent component
                 onLoginSuccess(response.data.user);
+            } else {
+                console.error('No token in response:', response.data);
+                setError('Login failed - no token received');
             }
         } catch (err) {
+            console.error('Login error:', err);
             setError(err.response?.data?.error || t('error'));
         } finally {
             setLoading(false);
