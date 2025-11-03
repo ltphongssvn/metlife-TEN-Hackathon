@@ -45,3 +45,4 @@ ENV/
 !package.json
 !tsconfig.json
 !.secrets.baseline
+.backups/
