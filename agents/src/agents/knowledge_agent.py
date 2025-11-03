@@ -1,7 +1,7 @@
 # /metlife-TEN-Hackathon/agents/src/agents/knowledge_agent.py
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 import os
 
 class KnowledgeAgent:
