@@ -1,0 +1,100 @@
+# agents/data/questions-to-ask.txt
+# Questions for AI Agent based on documents in agents/data/documents/
+
+## AVOIDING BURNOUT
+- I'm feeling exhausted all the time even after sleeping. Could this be burnout?
+- How do I balance studying with a part-time job without burning out?
+- What are early warning signs I should watch for to prevent burnout?
+- I feel guilty every time I take a break from studying. Is this normal?
+- How can I tell the difference between being tired and actual burnout?
+
+## CAREER PLANNING
+- When should I start looking for internships as a freshman?
+- How do I build a resume with limited work experience?
+- What's the best way to prepare for job interviews?
+- Should I go to graduate school right after undergrad or work first?
+- How important is networking really, and how do I start?
+
+## EDUCATIONAL RESOURCES
+- I'm struggling to balance work and school. What resources can help?
+- How can I find scholarships as an international student?
+- What's the Pomodoro Technique and how do I use it?
+- I'm behind in my classes. Where should I go for help?
+- How do I create an effective study schedule?
+
+## GROUP PROJECT LEADERSHIP
+- My group member isn't doing their share of work. What should I do?
+- How do I speak up in group projects when I'm not confident in English?
+- What's the difference between leadership in American vs my home culture?
+- My group wants to meet at times I can't. How do I handle this?
+- How do I give feedback to group members without being rude?
+
+## LONG-TERM EDUCATION VISION
+- How do I plan a 20-year career path when I don't know what I want?
+- What's the typical timeline from F-1 visa to green card?
+- Should I choose my major based on immigration prospects or passion?
+- How do I create a 5-year plan that's realistic?
+- What are STEM OPT extensions and do I qualify?
+
+## MENTAL HEALTH WELLNESS
+- I think I might be depressed. How do I know if I should seek help?
+- Are campus counseling services really confidential?
+- How do I manage anxiety before exams?
+- I'm feeling lonely and isolated. What should I do?
+- Is it normal to feel like an imposter at college?
+
+## MORAL COMPASS ETHICS  
+- Is using ChatGPT for homework considered cheating?
+- Where's the line between collaboration and plagiarism?
+- My friend is cheating. Should I report them?
+- How do I cite sources properly to avoid plagiarism?
+- What should I do if I accidentally plagiarized?
+
+## PROFESSIONAL INTERPERSONAL SKILLS
+- How can I be more likeable in professional settings?
+- What's the right way to disagree with someone at work or school?
+- I'm naturally quiet. How do I become more approachable?
+- How do I give constructive feedback without offending people?
+- What are some professional email etiquette rules I should know?
+
+## QUALITY STUDY HABITS
+- I study for hours but don't retain information. What am I doing wrong?
+- What's the difference between active and passive learning?
+- How do I know if my study methods are actually working?
+- Is it better to study one subject at a time or switch between subjects?
+- Should I reread my textbook or use different study methods?
+
+## RESILIENCE BUILDING
+- I failed my midterm. How do I bounce back from this?
+- How do I stay motivated when everything feels overwhelming?
+- What's the difference between being resilient and just pushing through?
+- I'm homesick and it's affecting my grades. What should I do?
+- How do successful students handle setbacks?
+
+## SELF-BELIEF CONFIDENCE
+- I feel like I don't belong here. How do I overcome imposter syndrome?
+- Everyone seems smarter than me. How do I build confidence?
+- My accent makes me self-conscious. How do I get over this?
+- How do I stop comparing myself to other students?
+- What if I fail and prove everyone right that I can't do this?
+
+## SLEEP OPTIMIZATION
+- How many hours of sleep do I really need as a college student?
+- Is pulling an all-nighter worth it before an exam?
+- I can't fall asleep because I'm anxious. What should I do?
+- How does sleep actually affect my grades and learning?
+- What's the best sleep schedule for someone in college?
+
+## STUDY TECHNIQUES
+- What's the Feynman Technique and how do I use it?
+- How does spaced repetition improve memory?
+- What's the best note-taking method for lectures?
+- Should I study in groups or alone for better results?
+- How do I effectively use flashcards for studying?
+
+## US CULTURE ADAPTATION
+- Why do Americans seem friendly but hard to become close friends with?
+- Is it rude to disagree with my professor in class?
+- What's the deal with tipping and how much should I tip?
+- How do I make friends when cultural differences feel so big?
+- I'm confused about American dating culture. Can you explain it?

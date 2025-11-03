@@ -21,11 +21,16 @@
     "@google-cloud/dialogflow": "^7.3.0",
     "@google-cloud/speech": "^7.2.1",
     "@google-cloud/text-to-speech": "^6.4.0",
+    "axios": "^1.13.1",
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.1",
+    "nodemailer": "^7.0.10",
+    "pg": "^8.16.3",
     "uuid": "^13.0.0"
   },
   "devDependencies": {

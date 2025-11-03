@@ -1,0 +1,88 @@
+/* /metlife-TEN-Hackathon/frontend/src/components/ConversationList.css */
+.conversation-list {
+    width: 300px;
+    background: #f8f9fa;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.conversation-list-header {
+    padding: 20px;
+    background: white;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.conversation-list-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.refresh-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #1976d2;
+    padding: 5px;
+    transition: transform 0.3s;
+}
+
+.refresh-btn:hover {
+    transform: rotate(180deg);
+}
+
+.conversation-items {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.conversation-item {
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.conversation-item:hover {
+    background: #e8f0fe;
+}
+
+.conversation-item.active {
+    background: #1976d2;
+    color: white;
+}
+
+.conversation-title {
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.conversation-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.conversation-item.active .conversation-meta {
+    opacity: 0.9;
+}
+
+.no-conversations {
+    padding: 40px 20px;
+    text-align: center;
+    color: #666;
+}
+
+.conversation-list-loading {
+    padding: 40px 20px;
+    text-align: center;
+    color: #666;
+}

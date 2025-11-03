@@ -1,0 +1,42 @@
+/* /metlife-TEN-Hackathon/frontend/src/components/VoiceInput.css */
+.voice-input-btn {
+    background: white;
+    border: 2px solid #1976d2;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    padding: 0;
+}
+
+.voice-input-btn:hover:not(:disabled) {
+    background: #e3f2fd;
+    transform: scale(1.05);
+}
+
+.voice-input-btn.listening {
+    background: #ffebee;
+    border-color: #f44336;
+    animation: pulse 1.5s infinite;
+}
+
+.voice-input-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
