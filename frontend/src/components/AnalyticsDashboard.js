@@ -23,9 +23,9 @@ const AnalyticsDashboard = ({ user }) => {
                 api.get(`/analytics/stats?days=${timeRange}`),
                 api.get(`/analytics/activity?days=${timeRange}`)
             ]);
-            
+
             setStats(statsRes.data);
-            
+
             // Format activity data for charts
             const formattedActivity = activityRes.data.map(day => ({
                 date: new Date(day.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
@@ -33,7 +33,7 @@ const AnalyticsDashboard = ({ user }) => {
                 messages: parseInt(day.message_count),
                 minutes: parseInt(day.total_minutes)
             })).reverse();
-            
+
             setDailyActivity(formattedActivity);
         } catch (error) {
             console.error('Error loading analytics:', error);
@@ -51,14 +51,14 @@ const AnalyticsDashboard = ({ user }) => {
             <div className="analytics-header">
                 <h2>Your Study Analytics</h2>
                 <div className="time-range-selector">
-                    <button 
-                        className={timeRange === 7 ? 'active' : ''} 
+                    <button
+                        className={timeRange === 7 ? 'active' : ''}
                         onClick={() => setTimeRange(7)}
                     >
                         7 Days
                     </button>
-                    <button 
-                        className={timeRange === 30 ? 'active' : ''} 
+                    <button
+                        className={timeRange === 30 ? 'active' : ''}
                         onClick={() => setTimeRange(30)}
                     >
                         30 Days
@@ -69,23 +69,23 @@ const AnalyticsDashboard = ({ user }) => {
             <div className="stats-grid">
                 <div className="stat-card">
                     <div className="stat-value">{stats?.total_sessions || 0}</div>
-                    <div className="stat-label">t("totalSessions")</div>
+                    <div className="stat-label">{t("totalSessions")}</div>
                 </div>
                 <div className="stat-card">
                     <div className="stat-value">{stats?.total_messages || 0}</div>
-                    <div className="stat-label">t("messagesSent")</div>
+                    <div className="stat-label">{t("messagesSent")}</div>
                 </div>
                 <div className="stat-card">
                     <div className="stat-value">
                         {stats?.total_minutes ? Math.round(stats.total_minutes) : 0}
                     </div>
-                    <div className="stat-label">t("minutesStudied")</div>
+                    <div className="stat-label">{t("minutesStudied")}</div>
                 </div>
                 <div className="stat-card">
                     <div className="stat-value">
                         {stats?.avg_duration ? Math.round(stats.avg_duration) : 0}
                     </div>
-                    <div className="stat-label">t("avgSession")</div>
+                    <div className="stat-label">{t("avgSession")}</div>
                 </div>
             </div>
 
@@ -100,10 +100,10 @@ const AnalyticsDashboard = ({ user }) => {
                                 <YAxis />
                                 <Tooltip />
                                 <Legend />
-                                <Line 
-                                    type="monotone" 
-                                    dataKey="sessions" 
-                                    stroke="#1976d2" 
+                                <Line
+                                    type="monotone"
+                                    dataKey="sessions"
+                                    stroke="#1976d2"
                                     strokeWidth={2}
                                     name="Sessions"
                                 />
