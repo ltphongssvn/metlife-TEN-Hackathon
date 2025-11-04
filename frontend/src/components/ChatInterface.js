@@ -20,11 +20,20 @@ const ChatInterface = ({ user, onLogout }) => {
     const [activeTab, setActiveTab] = useState('chat');
     const [editingMessageId, setEditingMessageId] = useState(null);
     const [editText, setEditText] = useState('');
-    const { speak, speaking, cancel } = useSpeechSynthesis();
+    // Fixed: Changed 'cancel' to 'stop' and added 'isSpeaking'
+    const { speak, speaking: isSpeaking, stop } = useSpeechSynthesis();
 
     useEffect(() => {
         loadConversations();
     }, []);
+
+    // Cleanup speech synthesis on unmount or logout
+    useEffect(() => {
+        return () => {
+            // Stop any ongoing speech when component unmounts
+            stop();
+        };
+    }, [stop]);
 
     const loadConversations = async () => {
         try {
@@ -86,7 +95,7 @@ const ChatInterface = ({ user, onLogout }) => {
             loadConversations();
 
             if (response.data.message) {
-                speak(response.data.message);
+                speak(response.data.message, i18n.language);
             }
         } catch (error) {
             console.error('Error sending message:', error);
@@ -146,6 +155,12 @@ const ChatInterface = ({ user, onLogout }) => {
         loadConversations();
     };
 
+    // Enhanced logout handler that stops speech
+    const handleLogoutWithCleanup = () => {
+        stop(); // Stop any ongoing speech
+        onLogout(); // Call the original logout function
+    };
+
     return (
         <div className="chat-container">
             {showSidebar && (
@@ -182,10 +197,32 @@ const ChatInterface = ({ user, onLogout }) => {
                                 {t('analytics')}
                             </button>
                         </div>
+                        {/* Stop Speech Button - Only show when speech is active */}
+                        {isSpeaking && (
+                            <button
+                                className="stop-speech-btn"
+                                onClick={stop}
+                                title={t('stopSpeech') || 'Stop Speech'}
+                                style={{
+                                    background: '#dc3545',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '4px',
+                                    padding: '6px 12px',
+                                    cursor: 'pointer',
+                                    marginRight: '10px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '5px'
+                                }}
+                            >
+                                🔇 {t('stop') || 'Stop'}
+                            </button>
+                        )}
                         <span className="username">
                             {t('welcome')}, {user?.firstName || 'User'}!
                         </span>
-                        <button className="logout-btn" onClick={onLogout}>
+                        <button className="logout-btn" onClick={handleLogoutWithCleanup}>
                             {t('logout')}
                         </button>
                     </div>
