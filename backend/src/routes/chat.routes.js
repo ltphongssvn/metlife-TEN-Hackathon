@@ -5,8 +5,12 @@ import agentService from '../services/agent.service.js';
 import { authenticate, optionalAuth } from '../middleware/auth.js';
 import Conversation from '../models/Conversation.js';
 import Message from '../models/Message.js';
+import StudySession from '../models/StudySession.js';
 
 const router = express.Router();
+
+// Track active sessions per user
+const activeSessions = new Map();
 
 // Send message to chatbot
 router.post('/chat', optionalAuth, async (req, res) => {
@@ -24,6 +28,40 @@ router.post('/chat', optionalAuth, async (req, res) => {
         if (req.user && !convId) {
             const conversation = await Conversation.create(req.user.id);
             convId = conversation.id;
+        }
+
+        // Start or update study session for authenticated users
+        if (req.user && convId) {
+            const sessionKey = `${req.user.id}-${convId}`;
+            let sessionData = activeSessions.get(sessionKey);
+
+            if (!sessionData) {
+                // Create new study session
+                const session = await StudySession.create({
+                    userId: req.user.id,
+                    conversationId: convId
+                });
+                sessionData = {
+                    sessionId: session.id,
+                    messageCount: 0,
+                    lastActivity: Date.now()
+                };
+                activeSessions.set(sessionKey, sessionData);
+
+                // Auto-end session after 30 minutes of inactivity
+                setTimeout(async () => {
+                    const currentData = activeSessions.get(sessionKey);
+                    if (currentData && Date.now() - currentData.lastActivity > 30 * 60 * 1000) {
+                        await StudySession.end(currentData.sessionId, currentData.messageCount);
+                        activeSessions.delete(sessionKey);
+                    }
+                }, 30 * 60 * 1000);
+            }
+
+            // Update session activity
+            sessionData.messageCount++;
+            sessionData.lastActivity = Date.now();
+            activeSessions.set(sessionKey, sessionData);
         }
 
         // Save user message if authenticated
@@ -48,6 +86,7 @@ router.post('/chat', optionalAuth, async (req, res) => {
         }
 
         let response;
+
         if (useAgents) {
             try {
                 // Pass language to agent service
@@ -69,6 +108,15 @@ router.post('/chat', optionalAuth, async (req, res) => {
                         sources: agentResponse.sources,
                         mode: 'agents'
                     });
+
+                    // Update message count for bot response
+                    const sessionKey = `${req.user.id}-${convId}`;
+                    const sessionData = activeSessions.get(sessionKey);
+                    if (sessionData) {
+                        sessionData.messageCount++;
+                        sessionData.lastActivity = Date.now();
+                        activeSessions.set(sessionKey, sessionData);
+                    }
                 }
             } catch (agentError) {
                 console.error('Agent system failed, falling back to Dialogflow:', agentError);
@@ -89,6 +137,15 @@ router.post('/chat', optionalAuth, async (req, res) => {
                         sender: 'bot',
                         mode: 'dialogflow'
                     });
+
+                    // Update message count for bot response
+                    const sessionKey = `${req.user.id}-${convId}`;
+                    const sessionData = activeSessions.get(sessionKey);
+                    if (sessionData) {
+                        sessionData.messageCount++;
+                        sessionData.lastActivity = Date.now();
+                        activeSessions.set(sessionKey, sessionData);
+                    }
                 }
             }
         } else {
@@ -109,6 +166,26 @@ router.post('/chat', optionalAuth, async (req, res) => {
             error: 'Failed to process message',
             message: 'I apologize, but I encountered an error. Please try again.'
         });
+    }
+});
+
+// End study session endpoint
+router.post('/sessions/end', authenticate, async (req, res) => {
+    try {
+        const { conversationId } = req.body;
+        const sessionKey = `${req.user.id}-${conversationId}`;
+        const sessionData = activeSessions.get(sessionKey);
+
+        if (sessionData) {
+            await StudySession.end(sessionData.sessionId, sessionData.messageCount);
+            activeSessions.delete(sessionKey);
+            res.json({ message: 'Session ended successfully' });
+        } else {
+            res.json({ message: 'No active session found' });
+        }
+    } catch (error) {
+        console.error('Error ending session:', error);
+        res.status(500).json({ error: 'Failed to end session' });
     }
 });
 
@@ -149,6 +226,14 @@ router.delete('/conversations/:id', authenticate, async (req, res) => {
 
         if (!isOwner) {
             return res.status(403).json({ error: 'Access denied' });
+        }
+
+        // End any active session for this conversation
+        const sessionKey = `${req.user.id}-${id}`;
+        const sessionData = activeSessions.get(sessionKey);
+        if (sessionData) {
+            await StudySession.end(sessionData.sessionId, sessionData.messageCount);
+            activeSessions.delete(sessionKey);
         }
 
         await Conversation.delete(id);
