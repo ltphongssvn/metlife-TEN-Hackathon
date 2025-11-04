@@ -266,4 +266,13 @@ router.get('/agents/health', async (req, res) => {
     }
 });
 
+// Debug endpoint to check StudySession integration
+router.get('/debug/session-status', authenticate, async (req, res) => {
+    res.json({
+        studySessionImported: typeof StudySession !== 'undefined',
+        activeSessions: activeSessions.size,
+        deploymentTime: new Date().toISOString()
+    });
+});
+
 export default router;
